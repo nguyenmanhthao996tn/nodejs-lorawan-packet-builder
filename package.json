@@ -1,0 +1,16 @@
+{
+  "name": "test-lorawanpacketbuilder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "node-aes-cmac": "^0.1.1"
+  }
+}
