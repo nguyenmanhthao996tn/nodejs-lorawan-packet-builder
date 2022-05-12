@@ -20,7 +20,7 @@ npm install --save
 node app.js
 ```
 ## Credit
-These are the library I use in this source code. If you find it useful, consider to give a star to these reposistories:
+These are the libraries I use in this source code. If you find it useful, consider to give a star to these reposistories:
 - [brix/crypto-js](https://github.com/brix/crypto-js)
 - [allan-stewart/node-aes-cmac](https://github.com/allan-stewart/node-aes-cmac)
 
