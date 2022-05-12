@@ -1,3 +1,13 @@
+/**
+ * This source code demonstrate how to build a LoRaWAN Unconfirm Uplink Packet from raw data with NodeJS.
+ * To use this, modify 6 const parameters at the beginning of this source code.
+ * 
+ * Filename: app.js
+ * Author: nguyenmanhthao996tn
+ * Modified: May 12, 2022 02:58 AM
+ * 
+*/
+
 const DEV_ADDR = '260B7AC6';                          // Device Address (Hex String)
 const NWK_S_KEY = 'F34B7EC4653C9E7805AC21442E1B472B'; // Network Session Key (Hex String)
 const APP_S_KEY = '2E1B2E2E88363E2216485BA8FDC2CC14'; // Application Session Key (Hex String)
@@ -55,7 +65,16 @@ var uplink_message_buffer = Buffer.from(uplink_message);
 console.log(uplink_message_buffer.toString('hex'));
 
 
-
+/**
+ * Compute LoRaWAN Uplink Frame Payload with AES-128.
+ * 
+ * @param data Frame data include headers and encrypted frame payload | Type: Hexadecimal Array
+ * @param key LoRaWAN Device Key, use AppSKey for FCnt=0 and NwkSKey for other FCnt | Type: Hex String
+ * @param dev_addr LoRaWAN Device Address | Type: Hex String
+ * @param fcnt Current frame counter | Type: Number
+ * 
+ * @returns The encrypted frame payload
+*/
 function computeFramePayload(data, key, dev_addr, fcnt) {
   var aBlock = [];
   aBlock[0] = 0x01;
@@ -113,6 +132,16 @@ function computeFramePayload(data, key, dev_addr, fcnt) {
   return output;
 }
 
+/**
+ * Compute LoRaWAN Uplink MIC with AES-CMAC.
+ * 
+ * @param data Frame data include headers and encrypted frame payload | Type: Hexadecimal Array
+ * @param key LoRaWAN Device Network Key | Type: Hex String
+ * @param dev_addr LoRaWAN Device Address | Type: Hex String
+ * @param fcnt Current frame counter | Type: Number
+ * 
+ * @returns Full output of EAS-CMAC Algorithm, only first 4 bytes used as LoRaWAN Packet MIC
+*/
 function computeMIC(data, key, dev_addr, fcnt) {
   var bBlock = [];
   bBlock[0] = 0x49;
